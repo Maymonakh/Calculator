@@ -22,4 +22,9 @@ describe('Calculator', () => {
     expect(calc(10, '/', 2)).toBe(5);
   });
 
+  // Test case: Division by zero
+  it('should throw an error when dividing by zero', () => {
+    expect(() => calc(6, '/', 0)).toThrow('Division by zero');
+  });
+
 });

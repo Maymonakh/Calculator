@@ -1,11 +1,10 @@
+// calculator.js
 function calc(...args) {
   if (args.length % 2 === 0) {
     throw new Error('Invalid input');
   }
 
   const operators = ['*', '/', '+', '-'];
-
-  // Implement basic arithmetic operations (+, -, *, /) here.
 
   let result = args[0];
   for (let i = 1; i < args.length; i += 2) {
@@ -18,6 +17,9 @@ function calc(...args) {
     } else if (operator === '*') {
       result *= operand;
     } else if (operator === '/') {
+      if (operand === 0) {
+        throw new Error('Division by zero');
+      }
       result /= operand;
     }
   }
