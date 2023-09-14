@@ -4,12 +4,23 @@
   "description": "",
   "main": "calculator.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["**/*.js"],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "html"]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "jest": "^29.7.0"
+  "devDependencies": {
+    "istanbul-lib-coverage": "^3.2.0",
+    "istanbul-lib-instrument": "^6.0.0",
+    "istanbul-lib-source-maps": "^4.0.1",
+    "istanbul-reports": "^3.1.6",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0"
   }
 }

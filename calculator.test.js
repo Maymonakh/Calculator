@@ -40,6 +40,8 @@ describe('Calculator', () => {
   // Test case: Order of operations
   it('should follow the correct order of operations', () => {
     expect(calc(2, '+', 3, '*', 4)).toBe(14);
+    expect(calc(2, '*', 3, '+', 4)).toBe(10);
+    expect(calc(10, '-', 5, '/', 2)).toBe(7.5);
   });
 
   // Test case: Invalid operator
@@ -50,5 +52,16 @@ describe('Calculator', () => {
   // Test case: Invalid input type
   it('should throw an error for invalid input types', () => {
     expect(() => calc('2', '+', 3)).toThrow('Invalid input type');
+    expect(() => calc(2, '+', '3')).toThrow('Invalid input type');
+  });
+
+  // Test multiple operations in a single expression.
+  test('Multiple Operations', () => {
+    expect(calc(2, '+', 3, '+', 4)).toBe(9);
+    expect(calc(2, '*', 3, '*', 4)).toBe(24);
+    expect(calc(10, '-', 5, '-', 2)).toBe(3);
+    expect(calc(8, '*', 2, '+', 5, '/', 5)).toBe(17);
+    expect(calc(10, '/', 2, '*', 3)).toBe(15);
+    expect(calc(2, '-', 3, '+', 4, '*', 2)).toBe(7);
   });
 });
