@@ -27,4 +27,12 @@ describe('Calculator', () => {
     expect(() => calc(6, '/', 0)).toThrow('Division by zero');
   });
 
+  it('Negative Numbers', () => {
+    expect(calc(-8, '+', 5)).toBe(-3);
+  });
+  
+  it('Decimal Numbers', () => {
+    expect(calc(3.5, '*', 2)).toBe(7);
+  });
+
 });

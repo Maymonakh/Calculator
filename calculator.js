@@ -1,4 +1,3 @@
-// calculator.js
 function calc(...args) {
   if (args.length % 2 === 0) {
     throw new Error('Invalid input');
