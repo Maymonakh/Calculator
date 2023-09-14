@@ -1,3 +1,4 @@
+// calculator.js
 function calc(...args) {
   if (args.length % 2 === 0) {
     throw new Error('Invalid input');
@@ -19,6 +20,10 @@ function calc(...args) {
   for (let i = 1; i < args.length; i += 2) {
     const operator = args[i];
     const operand = args[i + 1];
+
+    if (!operators.includes(operator)) {
+      throw new Error('Invalid operator');
+    }
 
     // Handle order of operations here.
     while (ops.length > 0 && precedence[ops[ops.length - 1]] >= precedence[operator]) {

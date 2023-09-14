@@ -39,4 +39,8 @@ describe('Calculator', () => {
     expect(calc(2, '+', 3, '*', 4)).toBe(14);
   });
 
+  it('Invalid Operator', () => {
+    expect(() => calc(5, '$', 3)).toThrow('Invalid operator');
+  });
+
 });
