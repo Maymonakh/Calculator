@@ -35,4 +35,8 @@ describe('Calculator', () => {
     expect(calc(3.5, '*', 2)).toBe(7);
   });
 
+  it('Order of Operations', () => {
+    expect(calc(2, '+', 3, '*', 4)).toBe(14);
+  });
+
 });
