@@ -1,11 +1,9 @@
-// calculator.js
 function calc(...args) {
   if (args.length % 2 === 0) {
     throw new Error('Invalid input');
   }
 
   const operators = ['*', '/', '+', '-'];
-
   const precedence = {
     '*': 2,
     '/': 2,
@@ -13,63 +11,64 @@ function calc(...args) {
     '-': 1,
   };
 
-  let result = args[0];
-  const values = [result];
-  const ops = [];
-
-  for (let i = 1; i < args.length; i += 2) {
-    const operator = args[i];
-    const operand = args[i + 1];
-
-    if (!operators.includes(operator)) {
-      throw new Error('Invalid operator');
-    }
-
-    // Handle order of operations here.
-    while (ops.length > 0 && precedence[ops[ops.length - 1]] >= precedence[operator]) {
-      const prevOperator = ops.pop();
+  const evaluate = (values, ops) => {
+    while (ops.length > 0) {
+      const op = ops.pop();
       const b = values.pop();
       const a = values.pop();
-      if (prevOperator === '+') {
-        result = a + b;
-      } else if (prevOperator === '-') {
-        result = a - b;
-      } else if (prevOperator === '*') {
-        result = a * b;
-      } else if (prevOperator === '/') {
-        if (b === 0) {
-          throw new Error('Division by zero');
-        }
-        result = a / b;
+      switch (op) {
+        case '+':
+          values.push(a + b);
+          break;
+        case '-':
+          values.push(a - b);
+          break;
+        case '*':
+          values.push(a * b);
+          break;
+        case '/':
+          if (b === 0) {
+            throw new Error('Division by zero');
+          }
+          values.push(a / b);
+          break;
+        default:
+          throw new Error('Invalid operator');
       }
-      values.push(result);
     }
+  };
 
-    ops.push(operator);
-    values.push(operand);
+  const values = [];
+  const ops = [];
+
+  for (let i = 0; i < args.length; i++) {
+    const token = args[i];
+    if (i % 2 === 0) {
+      if (typeof token !== 'number') {
+        throw new Error('Invalid input type');
+      }
+      values.push(token);
+    } else {
+      if (!operators.includes(token)) {
+        throw new Error('Invalid operator');
+      }
+      while (
+        ops.length > 0 &&
+        precedence[ops[ops.length - 1]] >= precedence[token]
+      ) {
+        evaluate(values, ops);
+      }
+      ops.push(token);
+    }
   }
 
-  // Evaluate any remaining operations.
-  while (ops.length > 0) {
-    const prevOperator = ops.pop();
-    const b = values.pop();
-    const a = values.pop();
-    if (prevOperator === '+') {
-      result = a + b;
-    } else if (prevOperator === '-') {
-      result = a - b;
-    } else if (prevOperator === '*') {
-      result = a * b;
-    } else if (prevOperator === '/') {
-      if (b === 0) {
-        throw new Error('Division by zero');
-      }
-      result = a / b;
-    }
-    values.push(result);
+  evaluate(values, ops);
+
+  if (values.length !== 1) {
+    throw new Error('Invalid input');
   }
 
-  return result;
+  return values[0];
 }
 
 module.exports = calc;

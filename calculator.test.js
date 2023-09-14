@@ -27,20 +27,28 @@ describe('Calculator', () => {
     expect(() => calc(6, '/', 0)).toThrow('Division by zero');
   });
 
-  it('Negative Numbers', () => {
+  // Test case: Negative numbers
+  it('should handle negative numbers correctly', () => {
     expect(calc(-8, '+', 5)).toBe(-3);
   });
-  
-  it('Decimal Numbers', () => {
+
+  // Test case: Decimal numbers
+  it('should handle decimal numbers correctly', () => {
     expect(calc(3.5, '*', 2)).toBe(7);
   });
 
-  it('Order of Operations', () => {
+  // Test case: Order of operations
+  it('should follow the correct order of operations', () => {
     expect(calc(2, '+', 3, '*', 4)).toBe(14);
   });
 
-  it('Invalid Operator', () => {
+  // Test case: Invalid operator
+  it('should throw an error for an invalid operator', () => {
     expect(() => calc(5, '$', 3)).toThrow('Invalid operator');
   });
 
+  // Test case: Invalid input type
+  it('should throw an error for invalid input types', () => {
+    expect(() => calc('2', '+', 3)).toThrow('Invalid input type');
+  });
 });
